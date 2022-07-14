@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { PORT_SERVER } = process.env;
 const { conn } = require("../db/db");
+const { auth, characters, movies } = require("../routers/index");
 
 require("colors");
 
@@ -11,7 +12,9 @@ class Server {
     this.app = express();
     this.port = PORT_SERVER;
     this.paths = {
-      prueva: "/",
+      routerAuth: "/auth",
+      routerCharacters: "/characters",
+      routerMovies: "/movies",
     };
 
     this.conectarDB();
@@ -25,7 +28,9 @@ class Server {
     this.app.use(cors());
   }
   routet() {
-    this.app.use(this.paths.prueva, require("../routers/authLogin.routes"));
+    this.app.use(this.paths.routerAuth, auth);
+    this.app.use(this.paths.routerMovies, characters);
+    this.app.use(this.paths.routerCharacters, movies);
   }
   lister() {
     conn.sync({ force: false }).then(() => {

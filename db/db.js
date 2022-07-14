@@ -1,5 +1,9 @@
 const { Sequelize } = require("sequelize");
 require("colors");
+const modelUser = require("../models/User");
+const modelCharacter = require("../models/Personaje");
+const modelMovie = require("../models/Pelicula");
+const modelGender = require("../models/Genero");
 const { USE_DB, PASSWORD_DB, PORT_DB, NAME_DB, HOST_DB } = process.env;
 
 const sequelize = new Sequelize(
@@ -23,7 +27,12 @@ const name = async () => {
 };
 name();
 
-const {} = sequelize.models;
+modelUser(sequelize);
+modelCharacter(sequelize);
+modelMovie(sequelize);
+modelGender(sequelize);
+
+const { Genero, Pelicula, Personaje, User } = sequelize.models;
 
 module.exports = {
   ...sequelize.models,
