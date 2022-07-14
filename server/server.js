@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { PORT_SERVER } = process.env;
+const { conn } = require("../db/db");
 
 require("colors");
 
@@ -27,11 +28,13 @@ class Server {
     this.app.use(this.paths.prueva, require("../routers/authLogin.routes"));
   }
   lister() {
-    this.app.listen(this.port, (error) => {
-      if (error) console.log(`${"status 500 lister sv".red} ${error}`);
-      console.log(
-        `${"server corriendo en el purto".rainbow} ${this.port.green}`
-      );
+    conn.sync({ force: false }).then(() => {
+      this.app.listen(this.port, (error) => {
+        if (error) console.log(`${"status 500 lister sv".red} ${error}`);
+        console.log(
+          `${"server corriendo en el purto".rainbow} ${this.port.green}`
+        );
+      });
     });
   }
 }
