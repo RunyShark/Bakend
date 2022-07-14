@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { prueva } = require("../controllers/authController");
+const { login, register } = require("../controllers/authController");
 //*2. Autenticación de Usuarios
 //*Para realizar peticiones a los endpoints subsiguientes el usuario deberá contar con un token que
 //*obtendrá al autenticarse. Para ello, deberán desarrollarse los endpoints de registro y login, que
@@ -7,8 +7,8 @@ const { prueva } = require("../controllers/authController");
 //*Los endpoints encargados de la autenticación deberán ser:
 const router = Router();
 
-router.get("/register", prueva);
-router.get("/login", prueva);
+router.post("/register", register);
+router.get("/login", login);
 module.exports = {
   auth: router,
 };

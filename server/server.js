@@ -29,8 +29,8 @@ class Server {
   }
   routet() {
     this.app.use(this.paths.routerAuth, auth);
-    this.app.use(this.paths.routerMovies, characters);
-    this.app.use(this.paths.routerCharacters, movies);
+    this.app.use(this.paths.routerMovies, movies);
+    this.app.use(this.paths.routerCharacters, characters);
   }
   lister() {
     conn.sync({ force: false }).then(() => {

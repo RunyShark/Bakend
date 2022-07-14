@@ -1,5 +1,10 @@
 const { Router } = require("express");
-const { prueva } = require("../controllers/authController");
+const {
+  characterListOrSearch,
+  createCharacter,
+  deleteCharacter,
+  editCharacter,
+} = require("../controllers/charactersController");
 
 //*. Listado de Personajes
 //**El listado deberá mostrar:
@@ -24,7 +29,10 @@ const { prueva } = require("../controllers/authController");
 //*● GET /characters?movies=idMovie
 const router = Router();
 
-router.get("/", prueva);
+router.get("/", characterListOrSearch);
+router.post("/", createCharacter);
+router.put("/", editCharacter);
+router.delete("/", deleteCharacter);
 
 module.exports = {
   characters: router,
