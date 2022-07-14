@@ -7,6 +7,10 @@ const register = (req = request, res = response) => {
   res.send("Register");
 };
 const login = (req = request, res = response) => {
+  //*2. Autenticación de Usuarios
+  //*Para realizar peticiones a los endpoints subsiguientes el usuario deberá contar con un token que
+  //*obtendrá al autenticarse. Para ello, deberán desarrollarse los endpoints de registro y login, que
+  //*permitan obtener el token.
   res.send("login");
 };
 

@@ -2,7 +2,6 @@ const { Router } = require("express");
 const {
   createMovie,
   deleteMovie,
-  detailsMovie,
   editMovie,
   getMovies,
 } = require("../controllers/moviesController");
