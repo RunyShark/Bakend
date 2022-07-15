@@ -124,15 +124,15 @@ const movieByIdDetallils = async (req = request, res = response) => {
   }
 };
 
-const createMovie = (req = request, res = response) => {
+const createMovie = async (req = request, res = response) => {
   try {
     const { imagen, titulo, fechaDeCreacion, calificacion } = req.body;
     const createMovie = await Pelicula.create({
-    imagen,
-    titulo,
-    fechaDeCreacion, 
-    calificacion
-    })
+      imagen,
+      titulo,
+      fechaDeCreacion,
+      calificacion,
+    });
     res.json({ msg: "ok", createMovie });
   } catch (error) {
     console.log(error);
@@ -141,7 +141,7 @@ const createMovie = (req = request, res = response) => {
   res.send("createMovie");
 };
 
-const editMovie = (req = request, res = response) => {
+const editMovie = async (req = request, res = response) => {
   try {
     const { id } = req.params;
     const { imagen, titulo, fechaDeCreacion, calificacion } = req.body;
@@ -159,7 +159,7 @@ const editMovie = (req = request, res = response) => {
   res.send("editMovie ");
 };
 
-const deleteMovie = (req = request, res = response) => {
+const deleteMovie = async (req = request, res = response) => {
   try {
     const { titulo } = req.body;
     const deleteMovie = await Pelicula.destroy({
@@ -179,14 +179,13 @@ const deleteMovie = (req = request, res = response) => {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
-  
+
   res.send("deleteMovie");
 };
 
 module.exports = {
   createMovie,
   deleteMovie,
-  detailsMovie,
   editMovie,
   moviesListOrSearch,
   movieByIdDetallils,
