@@ -28,6 +28,7 @@ router.get(
 router.put(
   "/:id",
   [
+    checkAuth,
     check("id").custom(movieById),
     check("titulo").custom(updateTitle),
     validarCampos,
@@ -36,16 +37,19 @@ router.put(
 );
 router.delete(
   "/",
-  check("titulo", "El campo titulo, es obligatorio para borrar una pelicula")
-    .not()
-    .isEmpty(),
-  check("titulo").custom(movieNotExists),
+  [
+    checkAuth,
+    check("titulo", "El campo titulo, es obligatorio para borrar una pelicula")
+      .not()
+      .isEmpty(),
+    check("titulo").custom(movieNotExists),
+  ],
   deleteMovie
 );
 router.post(
   "/",
   [
-    //checkAuth,
+    checkAuth,
     check("Imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),
     check("titulo").custom(titleExist),

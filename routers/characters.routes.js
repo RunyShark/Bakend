@@ -18,15 +18,16 @@ const {
 
 const router = Router();
 
-router.get("/", characterListOrSearch);
+router.get("/", [checkAuth], characterListOrSearch);
 router.get(
   "/:id",
-  [check("id").custom(characterById), validarCampos],
+  [checkAuth, check("id").custom(characterById), validarCampos],
   characterByIdDetails
 );
 router.put(
   "/:id",
   [
+    checkAuth,
     check("id", "Para editar un personaje debes de mandar un Id")
       .not()
       .isEmpty(),
@@ -42,6 +43,7 @@ router.put(
 router.delete(
   "/",
   [
+    checkAuth,
     check(
       "nombre",
       "El campo  nombre, es obligatorio para poder elimitar un personaje"
@@ -56,7 +58,7 @@ router.delete(
 router.post(
   "/",
   [
-    //checkAuth,
+    checkAuth,
     check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("nombre", "El campo  nombre es obligatorio").not().isEmpty(),
     check("nombre").custom(characterExist),
