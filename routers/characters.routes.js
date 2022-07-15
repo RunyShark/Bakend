@@ -7,6 +7,7 @@ const {
   deleteCharacter,
   editCharacter,
 } = require("../controllers/charactersController");
+const { characterExist } = require("../helpers/dbValidators");
 
 const router = Router();
 
@@ -16,11 +17,12 @@ router.delete("/", deleteCharacter);
 router.post(
   "/",
   [
-    check("Imagen", "El campo imagen es obligatorio").not().isEmpty(),
-    check("Nombre", "El campo  nombre es obligatorio").not().isEmpty(),
-    check("Edad", "El campo  edad es obligatorio").not().isEmpty(),
-    check("Peso", "El campo  peso es obligatorio").not().isEmpty(),
-    check("Historia", "El campo historia es obligatorio").not().isEmpty(),
+    check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
+    check("nombre", "El campo  nombre es obligatorio").not().isEmpty(),
+    check("nombre").custom(characterExist),
+    check("edad", "El campo  edad es obligatorio").not().isEmpty(),
+    check("peso", "El campo  peso es obligatorio").not().isEmpty(),
+    check("historia", "El campo historia es obligatorio").not().isEmpty(),
     validarCampos,
   ],
 

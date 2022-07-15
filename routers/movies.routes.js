@@ -6,7 +6,7 @@ const {
   editMovie,
   getMovies,
 } = require("../controllers/moviesController");
-const { titleExiste } = require("../helpers/dbValidators");
+const { titleExist } = require("../helpers/dbValidators");
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post(
   [
     check("Imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),
-    check("titulo").custom(titleExiste),
+    check("titulo").custom(titleExist),
     check("calificación", "El campo  peso es obligatorio").not().isEmpty(),
     check("calificación").custom(qualification),
     check("Historia", "El campo historia es obligatorio").not().isEmpty(),

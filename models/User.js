@@ -30,7 +30,11 @@ module.exports = (sequelize) => {
         defaultValue: "Ma a faca",
       },
       baneo: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      registerSocial: {
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
     },

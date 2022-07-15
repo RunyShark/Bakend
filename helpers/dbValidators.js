@@ -47,7 +47,7 @@ const genderExist = async (nombre = "") => {
     throw new Error(`El genero con el nombre: ${gender} ya existe.`);
   }
 };
-const titleExiste = async (titulo = "") => {
+const titleExist = async (titulo = "") => {
   const movie = await Pelicula.findOne({
     where: {
       titulo,
@@ -65,12 +65,24 @@ const qualification = async (calif = null) => {
     );
   }
 };
-//const genero = async (email = "") => {};
+
+const characterExist = async (nombre = "") => {
+  const character = await Personaje.findOne({
+    where: {
+      nombre,
+    },
+  });
+
+  if (character) {
+    throw new Error(`El persona con el nombre ${nombre} ya existe.`);
+  }
+};
 
 module.exports = {
   mailExists,
   mailRegister,
   genderExist,
-  titleExiste,
+  titleExist,
   qualification,
+  characterExist,
 };
