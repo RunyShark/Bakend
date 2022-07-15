@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
         unique: true,
       },
       fechaDeCreacion: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date().getTime(),
       },
-      Calificación: {
+      calificacion: {
         type: DataTypes.DECIMAL,
         defaultValue: 1,
         validate: {
@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
           max: 5,
         },
       },
-      Personajes: {
+      personajes: {
         type: DataTypes.STRING,
         allowNull: false,
       },

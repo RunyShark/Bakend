@@ -21,11 +21,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       historia: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      películaOSerie: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
     },
