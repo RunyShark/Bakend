@@ -31,6 +31,15 @@ modelGender(sequelize);
 
 const { Genero, Pelicula, Personaje, User } = sequelize.models;
 
+Personaje.belongsToMany(Pelicula, { through: "PeliculasSeries" });
+Pelicula.belongsToMany(Personaje, { through: "PeliculasSeries" });
+
+Pelicula.hasMany(Pelicula);
+Personaje.hasOne(Personaje);
+
+Pelicula.hasMany(Genero);
+Genero.hasOne(Pelicula);
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize,
