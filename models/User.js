@@ -37,6 +37,11 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      rol: {
+        type: DataTypes.STRING,
+        equals: ["USER", "ADMIN"],
+        defaultValue: "USER",
+      },
     },
     { timestamps: false }
   );

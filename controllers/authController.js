@@ -1,10 +1,11 @@
 const { request, response } = require("express");
 const { User } = require("../db/db");
 const { checkPassword, hassPassword } = require("../helpers/hasPassword");
+const { generarJWT } = require("../helpers/generarJWT");
 //const { welcomeEmailRegister } = require("../helpers/sendEmails");
 
 const register = async (req = request, res = response) => {
-  const { nombre, edad, password, email, img } = req.body;
+  const { nombre, edad, password, email, img, baneo } = req.body;
   try {
     const hashPass = await hassPassword(password);
     const createUser = await User.create({
@@ -13,6 +14,7 @@ const register = async (req = request, res = response) => {
       password: hashPass,
       email,
       img,
+      baneo,
     });
 
     await createUser.save();
@@ -28,10 +30,32 @@ const register = async (req = request, res = response) => {
   // });
 };
 
-const login = (req = request, res = response) => {
+const login = async (req = request, res = response) => {
   const { email, password } = req.body;
 
-  res.send("login");
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (user.baneo) {
+    const error = new Error(`El usuario ${user.nombre} esta baneado`);
+    return res.status(400).json({ msg: error.message });
+  }
+
+  if (await checkPassword(password, user.password)) {
+    const { nombre, img, edad } = user;
+    res.json({
+      msg: "Login ok",
+      user: {
+        nombre,
+        img,
+        edad,
+        token: generarJWT(user),
+      },
+    });
+  }
 };
 
 module.exports = {

@@ -70,6 +70,10 @@ const characterExist = async (nombre = "") => {
   }
 };
 
+const userBaneo = async (baneo = false) => {
+  if (baneo) throw new Error("Cuenta baneada");
+};
+
 module.exports = {
   mailExists,
   mailRegister,
@@ -77,4 +81,5 @@ module.exports = {
   titleExist,
   qualification,
   characterExist,
+  userBaneo,
 };

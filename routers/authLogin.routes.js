@@ -2,7 +2,11 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const { login, register } = require("../controllers/authController");
 const { validarCampos } = require("../middlewares/validarCampos");
-const { mailRegister, mailExists } = require("../helpers/dbValidators");
+const {
+  mailRegister,
+  mailExists,
+  userBaneo,
+} = require("../helpers/dbValidators");
 const router = Router();
 
 router.get(
@@ -11,6 +15,7 @@ router.get(
     check("email", "Debe de ser un correo valido").isEmail(),
     check("email", "El correo es un campo obligatorio").not().isEmpty(),
     check("email").custom(mailExists),
+    check("baneo").custom(userBaneo),
     check("password", "La contraseña es un campo obligatorio").not().isEmpty(),
     validarCampos,
   ],
