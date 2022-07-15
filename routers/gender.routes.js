@@ -9,7 +9,7 @@ const router = Router();
 router.post(
   "/",
   [
-    checkAuth,
+    //checkAuth,
     check("nombre", "Debe de ser un correo valido").not().isEmpty(),
     check("imagen", "El correo es un campo obligatorio").not().isEmpty(),
     check("nombre").custom(genderExist),

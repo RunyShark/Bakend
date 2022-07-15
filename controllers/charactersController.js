@@ -1,6 +1,30 @@
 const { request, response } = require("express");
+const { Personaje } = require("../db/db");
 
-const characterListOrSearch = (req = request, res = response) => {
+const characterListOrSearch = async (req = request, res = response) => {
+  // const { name, age, movies } = req.query;
+  // if (name || age || movies) {
+  //   switch (req.query) {
+  //     case "name":
+  //       createCharacter(query);
+  //       break;
+  //     case "age":
+  //       createCharacter(query);
+  //       break;
+  //     case "movies":
+  //       createCharacter(query);
+  //       break;
+  //     default:
+  //       res.status(500).json({ msg: "Olvide colocar esta ruta" });
+  //   }
+  // }
+
+  const getCharacter = await Personaje.findAll();
+  res.json({
+    msg: "ok",
+    results: [getCharacter],
+  });
+
   //*. Listado de Personajes
   //**El listado deberá mostrar:
   //*● Imagen.
@@ -17,22 +41,49 @@ const characterListOrSearch = (req = request, res = response) => {
   //*● GET /characters?name=nombre
   //*● GET /characters?age=edad
   //*● GET /characters?movies=idMovie
-  res.send("listCharacters");
 };
 
-const createCharacter = (req = request, res = response) => {
-  //*1. Creación
-  //*Deberán existir las operaciones básicas de creación, edición y eliminación de personajes.
-  res.send("createCharacter");
+const createCharacter = async (req = request, res = response) => {
+  const { nombre, imagen, peso, historia, edad } = req.body;
+  const addCharacter = await Personaje.create({
+    nombre,
+    imagen,
+    peso,
+    historia,
+    edad,
+  });
+
+  res.json({ msg: "ok", addCharacter });
 };
 
-const editCharacter = (req = request, res = response) => {
-  //*Edición
-  res.send("EditCharacter");
+const editCharacter = async (req = request, res = response) => {
+  const { id } = req.params;
+  const { nombre, imagen, peso, historia, edad } = req.body;
+  const putCharacter = await Personaje.findByPk(id);
+  putCharacter.nombre = nombre || putCharacter.nombre;
+  putCharacter.imagen = imagen || putCharacter.imagen;
+  putCharacter.peso = peso || putCharacter.peso;
+  putCharacter.historia = historia || putCharacter.historia;
+  putCharacter.edad = edad || putCharacter.edad;
+  await putCharacter.save();
+
+  res.status(203).json({ msg: "ok", UpdateCharacter: putCharacter });
 };
-const deleteCharacter = (req = request, res = response) => {
-  //*Eliminación
-  res.send("deleteCharacter");
+
+const deleteCharacter = async (req = request, res = response) => {
+  const { nombre } = req.body;
+  const deleteCharacter = await Personaje.destroy({
+    where: {
+      nombre,
+    },
+  });
+
+  res.status(204).json({
+    msg: "ok",
+    delete: {
+      deleteCharacter,
+    },
+  });
 };
 
 module.exports = {

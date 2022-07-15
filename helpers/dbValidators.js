@@ -73,7 +73,39 @@ const characterExist = async (nombre = "") => {
 const userBaneo = async (baneo = false) => {
   if (baneo) throw new Error("Cuenta baneada");
 };
+const updateName = async (nombre = "") => {
+  const character = await Personaje.findOne({
+    where: {
+      nombre,
+    },
+  });
 
+  if (character) {
+    throw new Error(
+      `No se puedo editar el nombre. El persona con el nombre ${nombre} ya existe.`
+    );
+  }
+};
+
+const characterById = async (id) => {
+  const byIdValid = await Personaje.findByPk(id);
+  if (!byIdValid) {
+    throw new Error(
+      `El perosnaje con el id: ${id} no existe, intenta con un id existente.`
+    );
+  }
+};
+
+const charaterNotExists = async (nombre = "") => {
+  const existCharacter = await Personaje.findOne({
+    where: {
+      nombre,
+    },
+  });
+  if (!existCharacter) {
+    throw new Error(`El personaje con el nombre: ${nombre} no existe.`);
+  }
+};
 module.exports = {
   mailExists,
   mailRegister,
@@ -82,4 +114,7 @@ module.exports = {
   qualification,
   characterExist,
   userBaneo,
+  updateName,
+  characterById,
+  charaterNotExists,
 };

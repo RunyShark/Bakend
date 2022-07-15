@@ -12,13 +12,13 @@ const {
 
 const router = Router();
 
-router.get("/", [checkAuth], getMovies);
-router.put("/", [checkAuth], editMovie);
-router.delete("/", [checkAuth], deleteMovie);
+router.get("/", getMovies);
+router.put("/", editMovie);
+router.delete("/", deleteMovie);
 router.post(
   "/",
   [
-    checkAuth,
+    //checkAuth,
     check("Imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),
     check("titulo").custom(titleExist),

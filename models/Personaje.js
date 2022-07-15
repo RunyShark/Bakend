@@ -13,11 +13,11 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       edad: {
-        type: DataTypes.STRING,
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
       peso: {
-        type: DataTypes.STRING,
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
       historia: {
