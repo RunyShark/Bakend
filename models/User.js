@@ -19,18 +19,23 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
+        validator: {
+          isEmail: true,
+          notEmpty: true,
+        },
       },
       img: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
       },
       baneo: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: false,
       },
       confirmacionCuenta: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
       },
     },
     { timestamps: false }

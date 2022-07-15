@@ -11,14 +11,19 @@ module.exports = (sequelize) => {
       titulo: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       fechaDeCreacion: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       Calificación: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.NUMBER,
+        defaultValue: 1,
+        validate: {
+          min: 1,
+          max: 5,
+        },
       },
       Personajes: {
         type: DataTypes.STRING,
