@@ -43,6 +43,7 @@ router.delete(
       .not()
       .isEmpty(),
     check("nombre").custom(charaterNotExists),
+    validarCampos,
   ],
   deleteCharacter
 );

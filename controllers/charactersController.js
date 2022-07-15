@@ -22,7 +22,7 @@ const characterListOrSearch = async (req = request, res = response) => {
   const getCharacter = await Personaje.findAll();
   res.json({
     msg: "ok",
-    results: [getCharacter],
+    results: getCharacter,
   });
 
   //*. Listado de Personajes
@@ -78,10 +78,11 @@ const deleteCharacter = async (req = request, res = response) => {
     },
   });
 
-  res.status(204).json({
+  res.status(203).json({
     msg: "ok",
     delete: {
       deleteCharacter,
+      nombre,
     },
   });
 };
