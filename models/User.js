@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       },
       img: {
         type: DataTypes.STRING,
-        defaultValue: "Ma a faca",
+        defaultValue: null,
       },
       baneo: {
         type: DataTypes.BOOLEAN,

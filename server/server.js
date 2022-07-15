@@ -33,7 +33,7 @@ class Server {
     this.app.use(this.paths.routerCharacters, characters);
   }
   lister() {
-    conn.sync({ force: false }).then(() => {
+    conn.sync({ force: true }).then(() => {
       this.app.listen(this.port, (error) => {
         if (error) console.log(`${"status 500 lister sv".red} ${error}`);
         console.log(

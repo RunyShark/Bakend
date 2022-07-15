@@ -1,34 +1,35 @@
 const { request, response } = require("express");
 const { User } = require("../db/db");
+const { checkPassword, hassPassword } = require("../helpers/hasPassword");
 //const { welcomeEmailRegister } = require("../helpers/sendEmails");
 
 const register = async (req = request, res = response) => {
   const { nombre, edad, password, email, img } = req.body;
   try {
+    const hashPass = await hassPassword(password);
     const createUser = await User.create({
       nombre,
       edad,
-      password,
+      password: hashPass,
       email,
       img,
     });
+
+    await createUser.save();
+
     res.json({ msg: "ok", createUser });
   } catch (error) {
     console.log(error);
   }
 
-  // welcomeEmailRegister({
+  //? welcomeEmailRegister({ ----------------------------- antes de entregar descomentar OjO
   //   email: [{ email }],
-  //   name: "Dario",
+  //   name: nombre,
   // });
 };
 
 const login = (req = request, res = response) => {
-  const { email } = req.body;
-  //*2. Autenticación de Usuarios
-  //*Para realizar peticiones a los endpoints subsiguientes el usuario deberá contar con un token que
-  //*obtendrá al autenticarse. Para ello, deberán desarrollarse los endpoints de registro y login, que
-  //*permitan obtener el token.
+  const { email, password } = req.body;
 
   res.send("login");
 };

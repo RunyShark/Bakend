@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validarCampos");
 const {
   createMovie,
@@ -6,7 +7,7 @@ const {
   editMovie,
   getMovies,
 } = require("../controllers/moviesController");
-const { titleExist } = require("../helpers/dbValidators");
+const { titleExist, qualification } = require("../helpers/dbValidators");
 
 const router = Router();
 
