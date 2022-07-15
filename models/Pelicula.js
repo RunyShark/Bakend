@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       Calificación: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.DECIMAL,
         defaultValue: 1,
         validate: {
           min: 1,

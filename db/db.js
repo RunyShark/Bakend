@@ -7,11 +7,8 @@ const modelGender = require("../models/Genero");
 const { USE_DB, PASSWORD_DB, PORT_DB, NAME_DB, HOST_DB } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${USE_DB}:${PASSWORD_DB}@${HOST_DB}:${PORT_DB}/${NAME_DB}`,
+  `postgres://${USE_DB}:${PASSWORD_DB}@${HOST_DB}:${PORT_DB}/disney`,
   {
-    define: {
-      freezeTableName: true,
-    },
     logging: false,
     native: false,
   }

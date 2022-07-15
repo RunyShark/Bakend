@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       edad: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL,
         allowNull: false,
       },
       password: {
@@ -27,15 +27,11 @@ module.exports = (sequelize) => {
       },
       img: {
         type: DataTypes.STRING,
-        defaultValue: null,
+        defaultValue: "Ma a faca",
       },
       baneo: {
         type: DataTypes.STRING,
         defaultValue: false,
-      },
-      confirmacionCuenta: {
-        type: DataTypes.STRING,
-        defaultValue: null,
       },
     },
     { timestamps: false }
