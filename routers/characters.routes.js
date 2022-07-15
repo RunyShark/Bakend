@@ -13,7 +13,7 @@ const {
   createCharacter,
   deleteCharacter,
   editCharacter,
-  characterByIdd,
+  characterByIdDetails,
 } = require("../controllers/charactersController");
 
 const router = Router();
@@ -22,7 +22,7 @@ router.get("/", characterListOrSearch);
 router.get(
   "/:id",
   [check("id").custom(characterById), validarCampos],
-  characterByIdd
+  characterByIdDetails
 );
 router.put(
   "/:id",

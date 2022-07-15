@@ -8,11 +8,17 @@ const {
   deleteMovie,
   editMovie,
   moviesListOrSearch,
+  movieByIdDetallils,
 } = require("../controllers/moviesController");
 
 const router = Router();
 
 router.get("/", moviesListOrSearch);
+router.get(
+  "/:id",
+  [check("id").custom(movieById), validarCampos],
+  movieByIdDetallils
+);
 router.put("/", editMovie);
 router.delete("/", deleteMovie);
 router.post(

@@ -106,15 +106,24 @@ const charaterNotExists = async (nombre = "") => {
     throw new Error(`El personaje con el nombre: ${nombre} no existe.`);
   }
 };
+
+const movieById = async (id) => {
+  const byIdMovie = await Pelicula.findByPk(id);
+  if (!byIdMovie) {
+    throw new Error(`La pelicula con el id: ${id} no existe.`);
+  }
+};
+
 module.exports = {
+  characterById,
+  characterExist,
+  charaterNotExists,
+  genderExist,
   mailExists,
   mailRegister,
-  genderExist,
-  titleExist,
+  movieById,
   qualification,
-  characterExist,
-  userBaneo,
+  titleExist,
   updateName,
-  characterById,
-  charaterNotExists,
+  userBaneo,
 };

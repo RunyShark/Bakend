@@ -66,14 +66,14 @@ const characterByName = async (nombre = "", res = response) => {
       );
       return res.status(400).json({ Error: true, msg: error.message });
     }
-    res.json({ msg: "ok", age: character });
+    res.json({ msg: "ok", character: character });
   } catch (error) {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
 };
 
-const characterByIdd = async (req = request, res = response) => {
+const characterByIdDetails = async (req = request, res = response) => {
   try {
     const { id } = req.params;
     //*como así también sus películas o
@@ -186,5 +186,5 @@ module.exports = {
   createCharacter,
   deleteCharacter,
   editCharacter,
-  characterByIdd,
+  characterByIdDetails,
 };
