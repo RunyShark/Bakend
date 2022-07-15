@@ -1,7 +1,13 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validarCampos");
-const { titleExist, qualification } = require("../helpers/dbValidators");
+const {
+  titleExist,
+  qualification,
+  movieById,
+  updateTitle,
+  movieNotExists,
+} = require("../helpers/dbValidators");
 const { checkAuth } = require("../middlewares/checkJWT");
 const {
   createMovie,
@@ -19,8 +25,23 @@ router.get(
   [check("id").custom(movieById), validarCampos],
   movieByIdDetallils
 );
-router.put("/", editMovie);
-router.delete("/", deleteMovie);
+router.put(
+  "/:id",
+  [
+    check("id").custom(movieById),
+    check("titulo").custom(updateTitle),
+    validarCampos,
+  ],
+  editMovie
+);
+router.delete(
+  "/",
+  check("titulo", "El campo titulo, es obligatorio para borrar una pelicula")
+    .not()
+    .isEmpty(),
+  check("titulo").custom(movieNotExists),
+  deleteMovie
+);
 router.post(
   "/",
   [

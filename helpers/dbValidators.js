@@ -113,6 +113,28 @@ const movieById = async (id) => {
     throw new Error(`La pelicula con el id: ${id} no existe.`);
   }
 };
+const updateTitle = async (title = "") => {
+  const existsName = await Pelicula.findOne({
+    where: {
+      title,
+    },
+  });
+  if (existsName) {
+    throw new Error(
+      `Ya existe una pelicula con el titulo: ${title}, no se pueden repetir titulos`
+    );
+  }
+};
+const movieNotExists = async (nombre = "") => {
+  const existMovie = await Pelicula.findOne({
+    where: {
+      titulo,
+    },
+  });
+  if (!existMovie) {
+    throw new Error(`El personaje con el nombre: ${nombre} no existe.`);
+  }
+};
 
 module.exports = {
   characterById,
@@ -122,8 +144,10 @@ module.exports = {
   mailExists,
   mailRegister,
   movieById,
+  movieNotExists,
   qualification,
   titleExist,
   updateName,
+  updateTitle,
   userBaneo,
 };

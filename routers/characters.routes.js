@@ -44,7 +44,7 @@ router.delete(
   [
     check(
       "nombre",
-      "El campo  nombre es obligatorio para poder elimitar un personaje"
+      "El campo  nombre, es obligatorio para poder elimitar un personaje"
     )
       .not()
       .isEmpty(),

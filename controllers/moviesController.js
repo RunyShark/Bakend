@@ -128,15 +128,13 @@ const createMovie = (req = request, res = response) => {
   try {
     const { imagen, titulo, fechaDeCreacion, calificacion } = req.body;
     const createMovie = await Pelicula.create({
-      imagen,
-      titulo,
-      fechaDeCreacion, 
-      calificacion
+    imagen,
+    titulo,
+    fechaDeCreacion, 
+    calificacion
     })
-
+    res.json({ msg: "ok", createMovie });
   } catch (error) {
-
-
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
@@ -145,6 +143,15 @@ const createMovie = (req = request, res = response) => {
 
 const editMovie = (req = request, res = response) => {
   try {
+    const { id } = req.params;
+    const { imagen, titulo, fechaDeCreacion, calificacion } = req.body;
+    const putMovie = await Pelicula.findByPk(id);
+    putMovie.titulo = titulo || putMovie.titulo;
+    putMovie.imagen = imagen || putMovie.imagen;
+    putMovie.fechaDeCreacion = fechaDeCreacion || putMovie.fechaDeCreacion;
+    putMovie.calificacion = calificacion || putCharacter.calificacion;
+    await putCharacter.save();
+    res.status(203).json({ msg: "ok", UpdateMovie: putMovie });
   } catch (error) {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
@@ -154,12 +161,25 @@ const editMovie = (req = request, res = response) => {
 
 const deleteMovie = (req = request, res = response) => {
   try {
+    const { titulo } = req.body;
+    const deleteMovie = await Pelicula.destroy({
+      where: {
+        titulo,
+      },
+    });
+
+    res.status(203).json({
+      msg: "ok",
+      delete: {
+        deleteMovie,
+        nombre,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
-  //*3. Creación, Edición y Eliminación de Película / Serie
-  //*Deberán existir las operaciones básicas de creación, edición y eliminación de películas o series.
+  
   res.send("deleteMovie");
 };
 
