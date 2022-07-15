@@ -7,12 +7,12 @@ const {
   createMovie,
   deleteMovie,
   editMovie,
-  getMovies,
+  moviesListOrSearch,
 } = require("../controllers/moviesController");
 
 const router = Router();
 
-router.get("/", getMovies);
+router.get("/", moviesListOrSearch);
 router.put("/", editMovie);
 router.delete("/", deleteMovie);
 router.post(
