@@ -2,7 +2,7 @@ const { request, response } = require("express");
 const { User } = require("../db/db");
 const { checkPassword, hassPassword } = require("../helpers/hasPassword");
 const { generarJWT } = require("../helpers/generarJWT");
-//const { welcomeEmailRegister } = require("../helpers/sendEmails");
+const { welcomeEmailRegister } = require("../helpers/sendEmails");
 
 const register = async (req = request, res = response) => {
   const { nombre, edad, password, email, img, baneo } = req.body;
@@ -16,18 +16,16 @@ const register = async (req = request, res = response) => {
       img,
       baneo,
     });
-
+    welcomeEmailRegister({
+      email: [{ email }],
+      name: nombre,
+    });
     await createUser.save();
 
     res.json({ msg: "ok", createUser });
   } catch (error) {
     console.log(error);
   }
-
-  //? welcomeEmailRegister({ ----------------------------- antes de entregar descomentar OjO
-  //   email: [{ email }],
-  //   name: nombre,
-  // });
 };
 
 const login = async (req = request, res = response) => {
