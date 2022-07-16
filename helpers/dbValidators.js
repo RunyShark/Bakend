@@ -46,14 +46,15 @@ const titleExist = async (titulo = "") => {
     },
   });
   if (movie) {
-    throw new Error(`La pelicula con el titulo: ${movie} ya existe.`);
+    throw new Error(`La pelicula con el titulo: ${titulo} ya existe.`);
   }
 };
 
-const qualification = async (calif = null) => {
-  if (calif < 1 || calif > 6) {
+const qualification = async (calif) => {
+  console.log(calif);
+  if (calif <= 0 || calif >= 6) {
     throw new Error(
-      `La cafinicacion tiene un numero maximo 5 y no puede ser menor que 1 ${calif} es un numero que no entra en el rango`
+      `La cafinicacion tiene que ser un numero maximo 5 y no puede ser menor que 1 ${calif} es un numero que no entra en el rango`
     );
   }
 };
@@ -113,15 +114,15 @@ const movieById = async (id) => {
     throw new Error(`La pelicula con el id: ${id} no existe.`);
   }
 };
-const updateTitle = async (title = "") => {
+const updateTitle = async (titulo = "") => {
   const existsName = await Pelicula.findOne({
     where: {
-      title,
+      titulo,
     },
   });
   if (existsName) {
     throw new Error(
-      `Ya existe una pelicula con el titulo: ${title}, no se pueden repetir titulos`
+      `Ya existe una pelicula con el titulo: ${titulo}, no se pueden repetir titulos`
     );
   }
 };

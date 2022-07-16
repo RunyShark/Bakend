@@ -50,12 +50,11 @@ router.post(
   "/",
   [
     checkAuth,
-    check("Imagen", "El campo imagen es obligatorio").not().isEmpty(),
+    check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),
     check("titulo").custom(titleExist),
-    check("calificación", "El campo  peso es obligatorio").not().isEmpty(),
-    check("calificación").custom(qualification),
-    check("Historia", "El campo historia es obligatorio").not().isEmpty(),
+    check("calificacion", "El campo calificacion obligatorio").not().isEmpty(),
+    check("calificacion").custom(qualification),
     validarCampos,
   ],
   createMovie

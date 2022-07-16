@@ -16,10 +16,8 @@ const register = async (req = request, res = response) => {
       img,
       baneo,
     });
-    welcomeEmailRegister({
-      email: [{ email }],
-      name: nombre,
-    });
+
+    welcomeEmailRegister({ email, nombre });
     await createUser.save();
 
     res.json({ msg: "ok", createUser });

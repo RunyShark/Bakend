@@ -18,12 +18,8 @@ module.exports = (sequelize) => {
         defaultValue: new Date().getTime(),
       },
       calificacion: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.BIGINT,
         defaultValue: 1,
-        validate: {
-          min: 1,
-          max: 5,
-        },
       },
     },
     { timestamps: false }
