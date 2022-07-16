@@ -1,22 +1,23 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { createGender } = require("../controllers/genderController");
+const { createGender, getGender } = require("../controllers/genderController");
 const { validarCampos } = require("../middlewares/validarCampos");
 const { genderExist } = require("../helpers/dbValidators");
 const { checkAuth } = require("../middlewares/checkJWT");
 const router = Router();
 
+router.get("/", getGender);
 router.post(
   "/",
   [
     checkAuth,
-    check("nombre", "Debe de ser un correo valido").not().isEmpty(),
-    check("imagen", "El correo es un campo obligatorio").not().isEmpty(),
-    check("nombre").custom(createGender),
+    check("nombre").custom(genderExist),
+    check("nombre", "El campo nombre es obligarotio").not().isEmpty(),
+    check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     validarCampos,
   ],
-  prueva
+  createGender
 );
 module.exports = {
-  auth: router,
+  gender: router,
 };

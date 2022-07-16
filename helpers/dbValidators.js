@@ -36,7 +36,7 @@ const genderExist = async (nombre = "") => {
   });
 
   if (genderExist) {
-    throw new Error(`El genero con el nombre: ${gender} ya existe.`);
+    throw new Error(`El genero con el nombre: ${nombre} ya existe.`);
   }
 };
 const titleExist = async (titulo = "") => {
