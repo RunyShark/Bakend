@@ -49,8 +49,6 @@ const movieByList = async (res = response) => {
   }
 };
 const movieByName = async (titulo = "", res = response) => {
-  console.log("wenas", titulo);
-
   try {
     const moviebyTitle = await Pelicula.findAll({
       where: {
@@ -84,11 +82,12 @@ const movieByGenre = async (idGender, res = response) => {
     ],
   });
 
-  if (movieForGender.length === 0) {
+  if (!movieForGender || movieForGender.length === 0) {
+    console.log("Holaaaa");
     const error = new Error(`No se encontro ninguna pelicula con ese id`);
     return res.status(400).json({ Error: true, msg: error.message });
   }
-  res.json({ msg: "ok", movieByGender: movieForGender });
+  res.json({ msg: "ok", movieForGender });
 };
 
 const movieByASCOrDESC = async (organize, res = response) => {
@@ -150,7 +149,18 @@ const createMovie = async (req = request, res = response) => {
 
     await createMovie.addGenero(genero);
 
-    res.json({ msg: "ok", createMovie });
+    const movieAddNewe = await Pelicula.findOne({
+      where: {
+        titulo,
+      },
+      include: [
+        {
+          model: Genero,
+        },
+      ],
+    });
+
+    res.json({ msg: "ok", newMovie: createMovie });
   } catch (error) {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
@@ -179,7 +189,7 @@ const editMovie = async (req = request, res = response) => {
 const deleteMovie = async (req = request, res = response) => {
   try {
     const { titulo } = req.body;
-    const deleteMovie = await Pelicula.destroy({
+    const deletMovie = await Pelicula.destroy({
       where: {
         titulo,
       },
@@ -187,17 +197,16 @@ const deleteMovie = async (req = request, res = response) => {
 
     res.status(203).json({
       msg: "ok",
-      delete: {
-        deleteMovie,
+      delte: {
+        deletMovie,
         titulo,
       },
     });
   } catch (error) {
+    console.log("hola");
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
-
-  res.send("deleteMovie");
 };
 
 module.exports = {

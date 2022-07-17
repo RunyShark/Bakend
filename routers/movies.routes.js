@@ -49,6 +49,7 @@ router.delete(
       .not()
       .isEmpty(),
     check("titulo").custom(movieNotExists),
+    validarCampos,
   ],
   deleteMovie
 );

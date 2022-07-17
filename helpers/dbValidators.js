@@ -126,14 +126,16 @@ const updateTitle = async (titulo = "") => {
     );
   }
 };
-const movieNotExists = async (nombre = "") => {
+const movieNotExists = async (titulo = "") => {
   const existMovie = await Pelicula.findOne({
     where: {
       titulo,
     },
   });
   if (!existMovie) {
-    throw new Error(`El personaje con el nombre: ${nombre} no existe.`);
+    throw new Error(
+      `La pelicula con el titulo con el nombre: ${titulo} no existe.`
+    );
   }
 };
 

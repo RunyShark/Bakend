@@ -1,3 +1,51 @@
+####Bootcamp
+
+API REST DISNEY🌟🚀      
+
+La siguiente API rest fue creada a partir del reto baken Node Alkemy para cumplir cada uno de los puntos requeridos del mismo, con el finde ser apto para el ingreso a la institución Alkemy.
+Resumen de lo que contiene esta API REST.
+
+LINK DE LA DOCUMENTACION DEL API REST: https://documenter.getpostman.com/view/20592207/UzQvsjzd
+
+
+Autenticación de usuarios
+-/auth/login
+-/auth/register
+
+Listado de personajes, creación, edición y eliminación de personajes (CRUD)
+-/characters
+
+Detalle de personaje
+-/characters/:id
+
+Búsqueda de personajes
+-/characters?name=nombre
+-/characters?age=edad
+-/characters?movies=idMovie
+
+Listado de películas creación, edición y eliminación de película / serie
+-/movies
+
+Detalle de película / serie con sus personajes
+-/movies/:id
+
+Genero crear
+-/gender
+
+Búsqueda de Películas o Series
+-/movies?name=nombre
+-/movies?genre=idGenero
+-/movies?order=ASC | DESC
+
+Envío de emails
+Se utilizo un API de tercero para poder implemetar el envio de correos automaticos una vez que se registra un usuario por primera vez en nuestra api,
+el api en consumida es la de google.
+developers.google.com
+
+
+
+
+
 +CHALLENGE BACKEND - NodeJs
 🚀
 
