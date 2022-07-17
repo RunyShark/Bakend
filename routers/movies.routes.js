@@ -35,8 +35,8 @@ router.put(
     check("titulo").custom(updateTitle),
     check("titulo").custom(nameIsString),
     check("imagen").custom(nameIsString),
-    check("calificacion").custom(isNumber),
     check("calificacion").custom(qualification),
+
     validarCampos,
   ],
   editMovie

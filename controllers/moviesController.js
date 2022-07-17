@@ -161,7 +161,7 @@ const editMovie = async (req = request, res = response) => {
   try {
     const { id } = req.params;
     const { imagen, titulo, fechaDeCreacion, calificacion } = req.body;
-
+    console.log(titulo);
     const putMovie = await Pelicula.findByPk(id);
     putMovie.titulo = titulo || putMovie.titulo;
     putMovie.imagen = imagen || putMovie.imagen;
