@@ -70,6 +70,12 @@ router.post(
     check("nombre", "El campo  nombre es obligatorio").not().isEmpty(),
     check("edad", "El campo  edad es obligatorio").not().isEmpty(),
     check("peso", "El campo  peso es obligatorio").not().isEmpty(),
+    check(
+      "titulo",
+      "El campo titulo es obligatorio, tiene que ser un id de una pelicula valida"
+    )
+      .not()
+      .isEmpty(),
     check("historia", "El campo historia es obligatorio").not().isEmpty(),
     check("nombre").custom(nameIsString),
     check("edad").custom(isNumber),

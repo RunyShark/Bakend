@@ -31,7 +31,6 @@ const characterListOrSearch = async (req = request, res = response) => {
 
 const charaterList = async (res = response) => {
   try {
-    //*○ Películas o series asociadas. fata ojo
     const getCharacter = await Personaje.findAll({
       attributes: ["nombre", "imagen"],
     });
@@ -107,6 +106,24 @@ const characterByAge = async (edad, res) => {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);
   }
+};
+
+const characterByIdMovie = async (idMovie, res = response) => {
+  const movieByIdCharacter = await Personaje.findByPk(idMovie, {
+    include: [
+      {
+        model: Pelicula,
+        attributes: ["titulo"],
+      },
+    ],
+  });
+  if (!movieByIdCharacter) {
+    const error = new Error(
+      `No esta asociado a la pelicula con el id: ${idMovie}`
+    );
+    return res.status(400).json({ msg: error.message });
+  }
+  res.json({ msg: "ok", idMovie: movieByIdCharacter });
 };
 
 const createCharacter = async (req = request, res = response) => {

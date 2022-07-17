@@ -56,6 +56,8 @@ router.post(
   "/",
   [
     checkAuth,
+    check("genero", "Genero es un capo obligatorio").not().isEmpty(),
+    check("genero").custom(isNumber),
     check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("imagen").custom(nameIsString),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),

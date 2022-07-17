@@ -121,7 +121,7 @@ const movieByIdDetallils = async (req = request, res = response) => {
 
 const createMovie = async (req = request, res = response) => {
   try {
-    const { imagen, titulo, calificacion, fechaDeCreacion } = req.body;
+    const { imagen, titulo, calificacion, fechaDeCreacion, genero } = req.body;
 
     const createMovie = await Pelicula.create({
       imagen,
