@@ -8,6 +8,7 @@ const {
   charaterNotExists,
   titleIsString,
   isNumber,
+  nameIsString,
 } = require("../helpers/dbValidators");
 const { checkAuth } = require("../middlewares/checkJWT");
 const {
@@ -38,6 +39,10 @@ router.put(
     check("nombre", "Debe de mandar el nombre del personaje que dea editar")
       .not()
       .isEmpty(),
+    check("edad").custom(isNumber),
+    check("peso").custom(isNumber),
+    check("nombre").custom(nameIsString),
+
     validarCampos,
   ],
   editCharacter
@@ -61,15 +66,16 @@ router.post(
   "/",
   [
     checkAuth,
-    check("titulo").custom(titleIsString),
-    check("edad").custom(isNumber),
-    check("peso").custom(isNumber),
     check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("nombre", "El campo  nombre es obligatorio").not().isEmpty(),
-    check("nombre").custom(characterExist),
     check("edad", "El campo  edad es obligatorio").not().isEmpty(),
     check("peso", "El campo  peso es obligatorio").not().isEmpty(),
     check("historia", "El campo historia es obligatorio").not().isEmpty(),
+    check("nombre").custom(nameIsString),
+    check("edad").custom(isNumber),
+    check("peso").custom(isNumber),
+    check("titulo").custom(titleIsString),
+    check("nombre").custom(characterExist),
     validarCampos,
   ],
 
