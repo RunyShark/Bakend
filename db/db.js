@@ -34,7 +34,7 @@ const { Genero, Pelicula, Personaje } = sequelize.models;
 Personaje.belongsToMany(Pelicula, { through: "PeliculasSeries" });
 Pelicula.belongsToMany(Personaje, { through: "PeliculasSeries" });
 
-Pelicula.hasMany(Genero, { as: "genero" });
+Pelicula.belongsToMany(Genero, { through: "PeliculasGenero" });
 Genero.belongsToMany(Pelicula, { through: "PeliculasGenero" });
 
 module.exports = {

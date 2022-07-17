@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const { request, response } = require("express");
-const { Pelicula, Personaje } = require("../db/db");
+const { Pelicula, Personaje, Genero } = require("../db/db");
 
 const moviesListOrSearch = (req = request, res = response) => {
   try {
@@ -73,6 +73,24 @@ const movieByName = async (titulo = "", res = response) => {
   }
 };
 
+const movieByGenre = async (idGender, res = response) => {
+  const movieForGender = await Pelicula.findByPk(idGender, {
+    attributes: ["titulo"],
+    include: [
+      {
+        model: Genero,
+        attributes: ["nombre"],
+      },
+    ],
+  });
+
+  if (movieForGender.length === 0) {
+    const error = new Error(`No se encontro ninguna pelicula con ese id`);
+    return res.status(400).json({ Error: true, msg: error.message });
+  }
+  res.json({ msg: "ok", movieByGender: movieForGender });
+};
+
 const movieByASCOrDESC = async (organize, res = response) => {
   try {
     const active = organize.toUpperCase();
@@ -129,6 +147,8 @@ const createMovie = async (req = request, res = response) => {
       calificacion,
       fechaDeCreacion,
     });
+
+    await createMovie.addGenero(genero);
 
     res.json({ msg: "ok", createMovie });
   } catch (error) {

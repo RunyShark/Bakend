@@ -110,10 +110,11 @@ const characterByAge = async (edad, res) => {
 
 const characterByIdMovie = async (idMovie, res = response) => {
   const movieByIdCharacter = await Personaje.findByPk(idMovie, {
+    attributes: ["nombre", "historia"],
     include: [
       {
         model: Pelicula,
-        attributes: ["titulo"],
+        attributes: ["titulo", "fechaDeCreacion", "calificacion"],
       },
     ],
   });
