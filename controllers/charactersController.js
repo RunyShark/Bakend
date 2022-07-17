@@ -1,7 +1,6 @@
 const { Op } = require("sequelize");
 const { request, response } = require("express");
 const { Personaje, Pelicula } = require("../db/db");
-const { number } = require("prop-types");
 
 const characterListOrSearch = async (req = request, res = response) => {
   try {
@@ -76,8 +75,6 @@ const characterByName = async (nombre = "", res = response) => {
 const characterByIdDetails = async (req = request, res = response) => {
   try {
     const { id } = req.params;
-    //*como así también sus películas o
-    //*series relacionadas.
     const detailsById = await Personaje.findByPk(id, {
       include: [
         {
@@ -112,21 +109,6 @@ const characterByAge = async (edad, res) => {
   }
 };
 
-// const characterByIdMovie = async (idMovie, res) => {
-//   const idMovie = await Personaje.findAll({
-//     where: {
-//       idMovie,
-//     },
-//   });
-//   if (!character) {
-//     const error = new Error(
-//       `No esta asociado a la pelicula con el id: ${idMovie}`
-//     );
-//     return res.status(400).json({ msg: error.message });
-//   }
-//   res.json({ msg: "ok", idMovie: character });
-// };
-
 const createCharacter = async (req = request, res = response) => {
   try {
     const { nombre, imagen, peso, historia, edad, titulo } = req.body;
@@ -143,20 +125,10 @@ const createCharacter = async (req = request, res = response) => {
       ? titulo.map((title) => addCharacter.addPelicula(title))
       : await addCharacter.addPelicula(titulo);
 
-    const newCharacter = await Personaje.findOne({
-      where: {
-        nombre,
-      },
-      include: {
-        model: Pelicula,
-        attributes: ["titulo", "imagen", "fechaDeCreacion", "calificacion"],
-      },
-    });
-
     res.json({
-      msg: "ok",
+      msg: "ok, para ver las categorias agradas, ir a detalles del personaje",
       movie: null,
-      new: newCharacter,
+      new: addCharacter,
     });
   } catch (error) {
     console.log(error);

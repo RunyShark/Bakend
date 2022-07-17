@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const { request, response } = require("express");
-const { Pelicula } = require("../db/db");
+const { Pelicula, Personaje } = require("../db/db");
 
 const moviesListOrSearch = (req = request, res = response) => {
   try {
@@ -50,7 +50,7 @@ const movieByList = async (res = response) => {
 };
 const movieByName = async (titulo = "", res = response) => {
   console.log("wenas", titulo);
-  //*Deberá permitir buscar por título,
+
   try {
     const moviebyTitle = await Pelicula.findAll({
       where: {
@@ -73,14 +73,6 @@ const movieByName = async (titulo = "", res = response) => {
   }
 };
 
-// const movieByGenre = async (gender, res = response) => {
-//   try {
-
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json(`Algo salio mal Error: ${error.message}`);
-//   }
-// };
 const movieByASCOrDESC = async (organize, res = response) => {
   try {
     const active = organize.toUpperCase();
@@ -112,10 +104,14 @@ const movieByASCOrDESC = async (organize, res = response) => {
 
 const movieByIdDetallils = async (req = request, res = response) => {
   try {
-    //*2. Detalle de Película / Serie con sus personajes
-    //*Devolverá todos los campos de la película o serie junto a los personajes asociados a la misma
     const { id } = req.params;
-    const movieById = await Pelicula.findByPk(id);
+    const movieById = await Pelicula.findByPk(id, {
+      include: [
+        {
+          model: Personaje,
+        },
+      ],
+    });
     res.json({ msg: "ok", byId: movieById });
   } catch (error) {
     console.log(error);
