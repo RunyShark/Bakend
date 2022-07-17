@@ -7,6 +7,8 @@ const {
   movieById,
   updateTitle,
   movieNotExists,
+  nameIsString,
+  isNumber,
 } = require("../helpers/dbValidators");
 const { checkAuth } = require("../middlewares/checkJWT");
 const {
@@ -31,6 +33,10 @@ router.put(
     checkAuth,
     check("id").custom(movieById),
     check("titulo").custom(updateTitle),
+    check("titulo").custom(nameIsString),
+    check("imagen").custom(nameIsString),
+    check("calificacion").custom(isNumber),
+    check("calificacion").custom(qualification),
     validarCampos,
   ],
   editMovie
@@ -51,9 +57,12 @@ router.post(
   [
     checkAuth,
     check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
+    check("imagen").custom(nameIsString),
     check("titulo", "El campo  titulo es obligatorio").not().isEmpty(),
+    check("titulo").custom(nameIsString),
     check("titulo").custom(titleExist),
     check("calificacion", "El campo calificacion obligatorio").not().isEmpty(),
+    check("calificacion").custom(isNumber),
     check("calificacion").custom(qualification),
     validarCampos,
   ],
