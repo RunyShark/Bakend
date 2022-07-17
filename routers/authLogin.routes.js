@@ -6,6 +6,7 @@ const {
   mailRegister,
   mailExists,
   userBaneo,
+  nameIsString,
 } = require("../helpers/dbValidators");
 const router = Router();
 
@@ -24,6 +25,8 @@ router.get(
 router.post(
   "/register",
   [
+    check("nombre").custom(nameIsString),
+    check("nombre", "El campo nombre es obligatorio").not().isEmpty(),
     check("email", "Debe de ser un correo valido").isEmail(),
     check("email", "El correo es un campo obligatorio").not().isEmpty(),
     check("email").custom(mailRegister),

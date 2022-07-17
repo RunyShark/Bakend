@@ -29,16 +29,13 @@ modelCharacter(sequelize);
 modelMovie(sequelize);
 modelGender(sequelize);
 
-const { Genero, Pelicula, Personaje, User } = sequelize.models;
+const { Genero, Pelicula, Personaje } = sequelize.models;
 
 Personaje.belongsToMany(Pelicula, { through: "PeliculasSeries" });
 Pelicula.belongsToMany(Personaje, { through: "PeliculasSeries" });
 
-Pelicula.hasMany(Pelicula);
-Personaje.hasOne(Personaje);
-
-Pelicula.hasMany(Genero);
-Genero.hasOne(Pelicula);
+Pelicula.hasMany(Genero, { as: "genero" });
+Genero.belongsToMany(Pelicula, { through: "PeliculasGenero" });
 
 module.exports = {
   ...sequelize.models,

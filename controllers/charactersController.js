@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { request, response } = require("express");
-const { Personaje } = require("../db/db");
+const { Personaje, Pelicula } = require("../db/db");
+const { number } = require("prop-types");
 
 const characterListOrSearch = async (req = request, res = response) => {
   try {
@@ -18,7 +19,6 @@ const characterListOrSearch = async (req = request, res = response) => {
         characterByIdMovie(termino, res);
         break;
       case "list":
-        console.log("Hola");
         charaterList(res);
         break;
       default:
@@ -78,7 +78,13 @@ const characterByIdDetails = async (req = request, res = response) => {
     const { id } = req.params;
     //*como así también sus películas o
     //*series relacionadas.
-    const detailsById = await Personaje.findByPk(id);
+    const detailsById = await Personaje.findByPk(id, {
+      include: [
+        {
+          model: Pelicula,
+        },
+      ],
+    });
     res.json({ msg: "ok", byId: detailsById });
   } catch (error) {
     console.log(error);
@@ -123,7 +129,7 @@ const characterByAge = async (edad, res) => {
 
 const createCharacter = async (req = request, res = response) => {
   try {
-    const { nombre, imagen, peso, historia, edad } = req.body;
+    const { nombre, imagen, peso, historia, edad, titulo } = req.body;
 
     const addCharacter = await Personaje.create({
       nombre,
@@ -133,7 +139,25 @@ const createCharacter = async (req = request, res = response) => {
       edad,
     });
 
-    res.json({ msg: "ok", addCharacter });
+    Array.isArray(titulo)
+      ? titulo.map((title) => addCharacter.addPelicula(title))
+      : await addCharacter.addPelicula(titulo);
+
+    const newCharacter = await Personaje.findOne({
+      where: {
+        nombre,
+      },
+      include: {
+        model: Pelicula,
+        attributes: ["titulo", "imagen", "fechaDeCreacion", "calificacion"],
+      },
+    });
+
+    res.json({
+      msg: "ok",
+      movie: null,
+      new: newCharacter,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(`Algo salio mal Error: ${error.message}`);

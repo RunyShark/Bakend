@@ -6,6 +6,8 @@ const {
   updateName,
   characterById,
   charaterNotExists,
+  titleIsString,
+  isNumber,
 } = require("../helpers/dbValidators");
 const { checkAuth } = require("../middlewares/checkJWT");
 const {
@@ -59,6 +61,9 @@ router.post(
   "/",
   [
     checkAuth,
+    check("titulo").custom(titleIsString),
+    check("edad").custom(isNumber),
+    check("peso").custom(isNumber),
     check("imagen", "El campo imagen es obligatorio").not().isEmpty(),
     check("nombre", "El campo  nombre es obligatorio").not().isEmpty(),
     check("nombre").custom(characterExist),

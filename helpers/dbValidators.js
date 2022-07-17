@@ -137,6 +137,28 @@ const movieNotExists = async (nombre = "") => {
   }
 };
 
+const titleIsString = async (titulo) => {
+  if (typeof titulo === "string") {
+    throw new Error(
+      `Solo se aceptan numeros y arrays de numeros ${titulo} no es un numero ni un array de numeros`
+    );
+  }
+};
+const nameIsString = async (titulo) => {
+  if (typeof titulo === "number") {
+    throw new Error(`Solo se aceptan letras o strings como numeros ${titulo} `);
+  }
+};
+
+const isNumber = (value) => {
+  console.log(value);
+
+  if (typeof value !== "number") {
+    throw new Error(`Solo se aceptan numeros ${value} no es un numero`);
+  }
+  return true;
+};
+
 module.exports = {
   characterById,
   characterExist,
@@ -151,4 +173,7 @@ module.exports = {
   updateName,
   updateTitle,
   userBaneo,
+  titleIsString,
+  nameIsString,
+  isNumber,
 };
