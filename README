@@ -3,12 +3,12 @@
 API REST DISNEY🌟🚀      
 
 La siguiente API rest fue creada a partir del reto baken Node Alkemy para cumplir cada uno de los puntos requeridos del mismo, con el finde ser apto para el ingreso a la institución Alkemy.
-Resumen de lo que contiene esta API REST.
+Resumen de lo que contiene esta API REST. 
 
 LINK DE LA DOCUMENTACION DEL API REST: https://documenter.getpostman.com/view/20592207/UzQvsjzd
 
 
-Autenticación de usuarios
+Autenticación de usuarios - contraseñas encriptadas con Bcrypt validacion con JWT
 -/auth/login
 -/auth/register
 
