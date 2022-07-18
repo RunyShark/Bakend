@@ -18,11 +18,10 @@ class Server {
       routerGender: "/gender",
     };
 
-    this.conectarDB();
     this.middelwares();
     this.routet();
   }
-  async conectarDB() {}
+
   middelwares() {
     this.app.use(express.json());
     this.app.use(morgan("dev"));
