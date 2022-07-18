@@ -10,7 +10,7 @@ const {
 } = require("../helpers/dbValidators");
 const router = Router();
 
-router.get(
+router.post(
   "/login",
   [
     check("email", "Debe de ser un correo valido").isEmail(),
