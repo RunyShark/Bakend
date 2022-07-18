@@ -161,6 +161,24 @@ const isNumber = (value) => {
   return true;
 };
 
+const nameLength = (name = "") => {
+  console.log(name);
+  if (name.length < 3) {
+    throw new Error(
+      `El nombre debe tener mas de 2 letras, ${name} no cumple con esta regla`
+    );
+  }
+  return true;
+};
+
+const passwordLength = (password) => {
+  if (password.length <= 5)
+    throw new Error(
+      `La contraseña  debe  de tener mas de 5 caracteres ${password} no cumple con la regla`
+    );
+  return true;
+};
+
 module.exports = {
   characterById,
   characterExist,
@@ -178,4 +196,6 @@ module.exports = {
   updateName,
   updateTitle,
   userBaneo,
+  nameLength,
+  passwordLength,
 };

@@ -51,6 +51,8 @@ const login = async (req = request, res = response) => {
         token: generarJWT(user),
       },
     });
+  } else {
+    res.json({ msg: "La contraseña no conincide, es incorrecta" });
   }
 };
 
