@@ -6,6 +6,7 @@ La siguiente API rest fue creada a partir del reto baken Node Alkemy para cumpli
 Resumen de lo que contiene esta API REST. 
 
 LINK DE LA DOCUMENTACION DEL API REST: https://documenter.getpostman.com/view/20592207/UzQvsjzd
+Run sv npm run dev
 
 
 Autenticación de usuarios - contraseñas encriptadas con Bcrypt validacion con JWT
