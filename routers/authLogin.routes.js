@@ -7,8 +7,6 @@ const {
   mailExists,
   userBaneo,
   nameIsString,
-  passwordLength,
-  nameLength,
 } = require("../helpers/dbValidators");
 const router = Router();
 
@@ -19,7 +17,10 @@ router.post(
     check("email", "El correo es un campo obligatorio").not().isEmpty(),
     check("email").custom(mailExists),
     check("baneo").custom(userBaneo),
-    check("password").custom(passwordLength),
+    check(
+      "password",
+      "La contraseña  debe  de tener mas de 5 caracteres"
+    ).isLength({ min: 5 }),
     check("password", "La contraseña es un campo obligatorio").not().isEmpty(),
     validarCampos,
   ],
@@ -29,13 +30,18 @@ router.post(
   "/register",
   [
     check("nombre").custom(nameIsString),
-    check("nombre").custom(nameLength),
+    check("nombre", "El nombre debe tener mas de 2 letras").isLength({
+      min: 3,
+    }),
     check("nombre", "El campo nombre es obligatorio").not().isEmpty(),
     check("email", "Debe de ser un correo valido").isEmail(),
     check("email", "El correo es un campo obligatorio").not().isEmpty(),
     check("email").custom(mailRegister),
     check("password", "La contraseña es un campo obligatorio").not().isEmpty(),
-    check("password").custom(passwordLength),
+    check(
+      "password",
+      "La contraseña  debe  de tener mas de 5 caracteres"
+    ).isLength({ min: 5 }),
     validarCampos,
   ],
   register
